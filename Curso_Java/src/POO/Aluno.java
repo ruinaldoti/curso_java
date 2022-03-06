@@ -1,5 +1,9 @@
 package POO;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 /*Esta é a nossa classe/objeto que representa o Aluno*/
 public class Aluno {
 	
@@ -15,24 +19,41 @@ public class Aluno {
 	private String serieMatriculado;
 	private int numMatricula;
 	
-	private double nota1;
-	private double nota2;
-	private double nota3;
-	private double nota4;
-	
+	List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	
 	public Aluno() {
 		
 	}
 	
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+
+
+
+
+
+
+
+
+
 	public double getMediaNota() {
-		double media = (nota1 + nota2 + nota3 +nota4)/4;
-		return media;
+		Double somaNotas = 0.0;
+		for(Disciplina disciplina : disciplinas) {
+			somaNotas += disciplina.getNota();
+		}
+		
+		return somaNotas / disciplinas.size();
 	}
 	
 	public boolean getAlunoAprovado() {
 		double media = this.getMediaNota();
-		if(media>= 7.0) {
+		if(media>= 70) {
 			return true;
 		}else {
 			return false;
@@ -41,62 +62,17 @@ public class Aluno {
 	
 	public String getAlunoAprovado2() {
 		double media = this.getMediaNota();
-		if(media>= 7.0) {
-			return "Aluno Aprovado";
+		if(media>= 50) {
+			if (media >=70) {
+				return "Aluno aprovado!";
+			}else {
+				return "Aluno Recuperação!";
+			}
+			
 		}else {
 			return "Aluno Reprovado";
 		}
 	}
-	
-	public double getNota1() {
-		return nota1;
-	}
-
-
-
-	public void setNota1(double nota1) {
-		this.nota1 = nota1;
-	}
-
-
-
-	public double getNota2() {
-		return nota2;
-	}
-
-
-
-	public void setNota2(double nota2) {
-		this.nota2 = nota2;
-	}
-
-
-
-	public double getNota3() {
-		return nota3;
-	}
-
-
-
-	public void setNota3(double nota3) {
-		this.nota3 = nota3;
-	}
-
-
-
-	public double getNota4() {
-		return nota4;
-	}
-
-
-
-	public void setNota4(double nota4) {
-		this.nota4 = nota4;
-	}
-
-	
-	
-	
 	
 	
 	
@@ -189,11 +165,52 @@ public class Aluno {
 		this.numMatricula = numMatricula;
 	}
 
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cpf, dataMatricula, dataNasc, disciplinas, idade, nome, nomeEscola, nomeMae, nomePai,
+				numMatricula, registroGeral, serieMatriculado);
+	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(dataMatricula, other.dataMatricula)
+				&& Objects.equals(dataNasc, other.dataNasc) && Objects.equals(disciplinas, other.disciplinas)
+				&& idade == other.idade && Objects.equals(nome, other.nome)
+				&& Objects.equals(nomeEscola, other.nomeEscola) && Objects.equals(nomeMae, other.nomeMae)
+				&& Objects.equals(nomePai, other.nomePai) && numMatricula == other.numMatricula
+				&& Objects.equals(registroGeral, other.registroGeral)
+				&& Objects.equals(serieMatriculado, other.serieMatriculado);
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "Aluno [nome=" + nome + ", idade=" + idade + ", cpf=" + cpf + ", nota1=" + nota1 + ", nota2=" + nota2
-				+ ", nota3=" + nota3 + ", nota4=" + nota4 + "]";
+		return "Aluno [nome=" + nome + ", idade=" + idade + ", dataNasc=" + dataNasc + ", registroGeral="
+				+ registroGeral + ", cpf=" + cpf + ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + ", dataMatricula="
+				+ dataMatricula + ", nomeEscola=" + nomeEscola + ", serieMatriculado=" + serieMatriculado
+				+ ", numMatricula=" + numMatricula + ", disciplinas=" + disciplinas + "]";
 	}
+
+	
+
+	
+	
+	
 	
 	
 	
